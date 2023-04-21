@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">DocManagement</string>
+    <string name="document_management">Document management</string>
+    <string name="logo">logo</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="sign_in">Войти</string>
+</resources>
