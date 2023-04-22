@@ -5,4 +5,11 @@
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
     <string name="sign_in">Войти</string>
+    <string name="info_message">Информационное письмо</string>
+    <string name="test_doc_number">Номер: ИСХ-2</string>
+    <string name="test_doc_type">Вид документа: Исходящий</string>
+    <string name="test_doc_title">Информационное письмо</string>
+    <string name="test_doc_state">Состояние: В архиве</string>
+    <string name="test_doc_date">05.01.2023 12:41</string>
+    <string name="test_doc_status">Завершен</string>
 </resources>

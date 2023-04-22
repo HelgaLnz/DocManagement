@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginVertical="10dp"
+    app:cardCornerRadius="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/document_recycler_item_backgound"
+        android:orientation="vertical"
+        android:paddingHorizontal="17dp"
+        android:paddingVertical="9dp">
+
+        <TextView
+            android:id="@+id/doc_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/test_doc_title"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/doc_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/test_doc_number"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/doc_type"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/test_doc_type"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/doc_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/test_doc_state"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/doc_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:text="@string/test_doc_date"
+                android:textColor="@color/birch"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/doc_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:gravity="end"
+                android:text="@string/test_doc_status"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

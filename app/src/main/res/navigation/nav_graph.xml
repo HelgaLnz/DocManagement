@@ -9,13 +9,18 @@
         android:id="@+id/authorizationFragment"
         android:name="com.example.docmanagement.fragmnets.authorization.AuthorizationFragment"
         android:label="AuthorizationFragment"
-        tools:layout="@layout/authorization_fragment" >
+        tools:layout="@layout/authorization_fragment">
         <action
             android:id="@+id/action_authorizationFragment_to_documentsFragment"
             app:destination="@id/documentsFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/documentsFragment"
         android:name="com.example.docmanagement.fragmnets.documents.DocumentsFragment"
-        android:label="DocumentsFragment" />
+        android:label="DocumentsFragment"
+        tools:layout="@layout/documents_fragment">
+        <argument android:name="user_id" />
+        <argument android:name="role" />
+    </fragment>
 </navigation>

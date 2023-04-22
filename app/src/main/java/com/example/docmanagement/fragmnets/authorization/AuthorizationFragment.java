@@ -9,9 +9,11 @@ import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.android.volley.VolleyError;
 import com.example.docmanagement.R;
+import com.example.docmanagement.constants.HttpConstants;
 import com.example.docmanagement.helpers.HttpHelper;
 import com.example.docmanagement.helpers.ToastHelper;
 import com.example.docmanagement.helpers.VolleyCallback;
@@ -22,7 +24,6 @@ import com.google.gson.GsonBuilder;
 
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 
 public class AuthorizationFragment extends Fragment {
@@ -57,6 +58,7 @@ public class AuthorizationFragment extends Fragment {
   private void initValues(View view) {
     this.context = getContext();
     this.view = view;
+    Navigation.findNavController(view).navigate(R.id.action_authorizationFragment_to_documentsFragment); // TODO: remove
 
     httpHelper = new HttpHelper(context);
 
@@ -68,34 +70,48 @@ public class AuthorizationFragment extends Fragment {
   private void setOnClickListeners() {
     Gson gson = new GsonBuilder().create();
 
-    loginBtn.setOnClickListener(v -> {
+    loginBtn.setOnClickListener(v ->
       httpHelper.signIn(
         loginInput.getText().toString(),
         passwordInput.getText().toString(),
         new VolleyCallback() {
           @Override
           public void onSuccess(JSONObject response) {
-            Log.i(DEBUG_TAG, response.toString());
-            AuthResponse authResponse = gson.fromJson(response.toString(), AuthResponse.class);
-            Log.i(DEBUG_TAG, authResponse.toString());
+            try {
+              AuthResponse authResponse = gson.fromJson(response.toString(), AuthResponse.class);
+
+              Bundle bundle = new Bundle();
+              bundle.putString(HttpConstants.USER_ID, authResponse.getUserId());
+              bundle.putString(HttpConstants.ROLE, authResponse.getUserRole());
+
+              Navigation
+                .findNavController(view)
+                .navigate(R.id.action_authorizationFragment_to_documentsFragment, bundle);
+            } catch (Exception e) {
+              ToastHelper.showToast(context, "Ошибка сервера");
+            }
           }
 
           @Override
           public void onError(VolleyError error) {
-            Log.e(DEBUG_TAG, new String(error.networkResponse.data, StandardCharsets.UTF_8));
+            try {
+              Log.e(DEBUG_TAG, new String(error.networkResponse.data, StandardCharsets.UTF_8));
 
-            if (error.networkResponse.data != null) {
-              ToastHelper.showToast(
-                context,
-                gson.fromJson(
-                  new String(error.networkResponse.data, StandardCharsets.UTF_8),
-                  ErrorResponse.class
-                ).getError().getMessage()
-              );
+              if (error.networkResponse.data != null) {
+                ToastHelper.showToast(
+                  context,
+                  gson.fromJson(
+                    new String(error.networkResponse.data, StandardCharsets.UTF_8),
+                    ErrorResponse.class
+                  ).getError().getMessage()
+                );
+              }
+            } catch (Exception e) {
+              ToastHelper.showToast(context, "Ошибка сервера");
             }
           }
         }
-      );
-    });
+      )
+    );
   }
 }

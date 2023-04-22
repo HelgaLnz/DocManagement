@@ -5,5 +5,6 @@ public class HttpConstants {
   public static String LOGIN = "login";
   public static String PASSWORD = "password";
   public static String SIGN_IN = "sign_in";
+  public static String USER_ID = "user_id";
   public static String ROLE = "role";
 }
