@@ -71,6 +71,10 @@ public class DocumentResponse {
     return timeCreated;
   }
 
+  public void setDealId(int dealId) {
+    this.dealId = dealId;
+  }
+
   public List<DocumentStatusResponse> getDocumentStatuses() {
     return documentStatuses;
   }

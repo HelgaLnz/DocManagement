@@ -12,18 +12,30 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
+import com.android.volley.VolleyError;
 import com.example.docmanagement.R;
+import com.example.docmanagement.constants.HttpConstants;
 import com.example.docmanagement.helpers.HttpHelper;
+import com.example.docmanagement.helpers.ToastHelper;
+import com.example.docmanagement.helpers.VolleyCallback;
+import com.example.docmanagement.models.responses.UploadResponse;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +43,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class PhotoReportFragment extends Fragment {
+
+  private static final String DEBUG_TAG = PhotoReportFragment.class.toString();
 
   private static final int CAMERA_REQUEST = 1888;
   private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -40,8 +54,11 @@ public class PhotoReportFragment extends Fragment {
   private ImageView reportImageView;
   private Button photoButton;
   private Button sendButton;
+  private EditText captionEditText;
   private HttpHelper httpHelper;
   private String currentPhotoPath;
+  private String userId;
+  private int dealId;
 
   public PhotoReportFragment() {
     super(R.layout.photo_report_fragment);
@@ -71,14 +88,23 @@ public class PhotoReportFragment extends Fragment {
     this.context = getContext();
     this.view = view;
 
+    Bundle bundle = getArguments();
+    if(bundle != null) {
+      userId = bundle.getString(HttpConstants.USER_ID);
+      dealId = bundle.getInt(HttpConstants.DEAL_ID);
+    }
+
     httpHelper = new HttpHelper(context);
 
     reportImageView = view.findViewById(R.id.record_photo);
     photoButton = view.findViewById(R.id.button_photo);
     sendButton = view.findViewById(R.id.button_send);
+    captionEditText = view.findViewById(R.id.photo_record_description);
   }
 
   private void setOnClickListeners() {
+    Gson gson = new GsonBuilder().create();
+
     photoButton.setOnClickListener(v -> {
       Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
       if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
@@ -109,7 +135,42 @@ public class PhotoReportFragment extends Fragment {
         d.getIntrinsicHeight(),
         Bitmap.Config.ARGB_8888
       );
-      httpHelper.uploadBitmap(bitmap);
+      httpHelper.uploadBitmap(bitmap, new VolleyCallback<JSONObject>() {
+        @Override
+        public void onSuccess(JSONObject response) {
+          Log.d(DEBUG_TAG, "response: " + response.toString());
+          try {
+            httpHelper.attach(
+              captionEditText.getText().toString(),
+              userId,
+              dealId,
+              gson.fromJson(
+                response.toString(),
+                UploadResponse.class
+              ).getResult(),
+              new VolleyCallback<JSONObject>() {
+                @Override
+                public void onSuccess(JSONObject response) {
+                  ToastHelper.showToast(context, "Отчет добавлен");
+                  Navigation.findNavController(view).popBackStack();
+                }
+
+                @Override
+                public void onError(VolleyError error) {
+                  ToastHelper.showToast(context, "Ошибка при добавлении отчета");
+                }
+              }
+            );
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
+
+        @Override
+        public void onError(VolleyError error) {
+          Log.e(DEBUG_TAG, "response: " + error.getMessage());
+        }
+      });
     });
   }
 

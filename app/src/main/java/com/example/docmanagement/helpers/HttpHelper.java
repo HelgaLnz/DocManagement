@@ -30,8 +30,9 @@ public class HttpHelper {
   private static final String BASE_URL = "https://dmapi.alnezis.space/";
 
   private static final String POST_AUTH = BASE_URL + "auth";
-  private static final String POST_IMAGE = BASE_URL + "files/upload";
   private static final String GET_DEALS = BASE_URL + "deals/list";
+  private static final String POST_IMAGE = BASE_URL + "files/upload";
+  private static final String POST_ATTACH = BASE_URL + "photos/attach";
 
   private final RequestQueue requestQueue;
 
@@ -101,7 +102,7 @@ public class HttpHelper {
     requestQueue.add(request);
   }
 
-  public void uploadBitmap(final Bitmap bitmap) {
+  public void uploadBitmap(final Bitmap bitmap, VolleyCallback cb) {
     VolleyMultipartRequest request = new VolleyMultipartRequest(
       Request.Method.POST,
       POST_IMAGE,
@@ -109,11 +110,13 @@ public class HttpHelper {
         try {
           JSONObject obj = new JSONObject(new String(response.data));
           Log.d(DEBUG_TAG, "onResponse: " + obj.getString(HttpConstants.RESULT));
+          cb.onSuccess(obj);
         } catch (JSONException e) {
           e.printStackTrace();
         }
       },
       error -> {
+        cb.onError(error);
         Log.e("GotError", "" + error.toString());
       }) {
 
@@ -130,6 +133,49 @@ public class HttpHelper {
     };
 
     requestQueue.add(request);
+  }
+
+  public void attach(String caption, String userId, int dealId, String url, VolleyCallback cb) {
+    try {
+      Log.d(
+        DEBUG_TAG,
+        "caption: " + caption + " userId: " + userId + " dealId: " + dealId + " url: " + url
+      );
+
+      JSONObject attachJson = new JSONObject()
+        .put(HttpConstants.DEAL_ID, dealId)
+        .put(HttpConstants.CAPTION, caption)
+        .put(HttpConstants.URL, url);
+
+      final JsonObjectRequest request = new JsonObjectRequest(
+        Request.Method.POST,
+        POST_ATTACH,
+        attachJson,
+        response -> {
+          try {
+            cb.onSuccess(response.getJSONObject(HttpConstants.RESULT));
+          } catch (JSONException e) {
+            e.printStackTrace();
+          }
+        },
+        error -> {
+          error.printStackTrace();
+          cb.onError(error);
+        }
+      ) {
+        @Override
+        public Map<String, String> getHeaders() {
+          Map<String, String> params = new HashMap<>();
+          params.put("USER-ID", userId);
+
+          return params;
+        }
+      };
+
+      requestQueue.add(request);
+    } catch (JSONException e) {
+      e.printStackTrace();
+    }
   }
 
   private byte[] getFileDataFromDrawable(Bitmap bitmap) {

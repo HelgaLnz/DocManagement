@@ -98,7 +98,7 @@ public class DocumentsFragment extends Fragment {
     documentsRecycler = view.findViewById(R.id.documents_recycler);
 
     documents = new HashSet<>();
-    documentsAdapter = new DocumentsAdapter(view, documents);
+    documentsAdapter = new DocumentsAdapter(view, documents, userId);
 
     Gson gson = new GsonBuilder().create();
     this.httpHelper.getDeals(userId, new VolleyCallback<JSONArray>() {
@@ -110,10 +110,9 @@ public class DocumentsFragment extends Fragment {
             DealResponse[].class
           ));
 
-
           for (DealResponse deal : dealsResponse) {
             for (DocumentResponse document : deal.getDocuments()) {
-              documents.add(new Document(document, userId));
+              documents.add(new Document(document, deal.getId(), userId));
             }
           }
           Log.d(DEBUG_TAG, "deals: " + documents);
@@ -136,6 +135,5 @@ public class DocumentsFragment extends Fragment {
   }
 
   private void setOnClickListeners() {
-
   }
 }

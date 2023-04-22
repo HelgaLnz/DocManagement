@@ -9,4 +9,7 @@ public class HttpConstants {
   public static String ROLE = "role";
   public static String USER_NAME = "user_name";
   public static String FILE = "file";
+  public static String DEAL_ID = "deal_id";
+  public static String CAPTION = "caption";
+  public static String URL = "url";
 }

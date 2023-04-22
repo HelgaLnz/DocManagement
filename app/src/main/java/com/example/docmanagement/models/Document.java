@@ -2,9 +2,6 @@ package com.example.docmanagement.models;
 
 import com.example.docmanagement.models.responses.DocumentResponse;
 
-import java.text.DateFormat;
-import java.util.Date;
-
 public class Document {
 
   private String title;
@@ -33,9 +30,10 @@ public class Document {
     this.status = status;
   }
 
-  public Document(DocumentResponse documentResponse, String userId) {
+  public Document(DocumentResponse documentResponse, int dealId, String userId) {
     this.title = documentResponse.getName() != null ? documentResponse.getName() : "Мой документ";
     this.number = documentResponse.getId() + "";
+    this.dealId = dealId;
     this.type = documentResponse.getUserId() == Integer.parseInt(userId) ? "Исходящий" : "Входящий";
     this.state = "В архиве";
     if (documentResponse.getDocumentStatuses() != null) {

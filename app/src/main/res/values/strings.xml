@@ -20,4 +20,5 @@
     <string name="create_photo_record">Создать фото отчет</string>
     <string name="shot">Снимок</string>
     <string name="send">Отправить</string>
+    <string name="photo_record_description">Описание фоотчета</string>
 </resources>
