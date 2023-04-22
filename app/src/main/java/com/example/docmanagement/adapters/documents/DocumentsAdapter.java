@@ -12,13 +12,14 @@ import com.example.docmanagement.R;
 import com.example.docmanagement.adapters.documents.viewholders.DocumentViewHolder;
 import com.example.docmanagement.models.Document;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 public class DocumentsAdapter extends RecyclerView.Adapter {
 
-  private List<Document> documents;
+  private final List<Document> documents;
 
   public DocumentsAdapter(Collection<Document> documents) {
     this.documents = new ArrayList<>(documents);

@@ -19,8 +19,5 @@
         android:id="@+id/documentsFragment"
         android:name="com.example.docmanagement.fragmnets.documents.DocumentsFragment"
         android:label="DocumentsFragment"
-        tools:layout="@layout/documents_fragment">
-        <argument android:name="user_id" />
-        <argument android:name="role" />
-    </fragment>
+        tools:layout="@layout/documents_fragment" />
 </navigation>

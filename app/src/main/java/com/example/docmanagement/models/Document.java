@@ -1,9 +1,12 @@
 package com.example.docmanagement.models;
 
+import com.example.docmanagement.models.responses.DocumentResponse;
+
 public class Document {
 
   private String title;
   private String number;
+  private int dealId;
   private String type;
   private String state;
   private String date;
@@ -12,6 +15,7 @@ public class Document {
   public Document(
     String title,
     String number,
+    int dealId,
     String type,
     String state,
     String date,
@@ -19,10 +23,22 @@ public class Document {
   ) {
     this.title = title;
     this.number = number;
+    this.dealId = dealId;
     this.type = type;
     this.state = state;
     this.date = date;
     this.status = status;
+  }
+
+  public Document(DocumentResponse documentResponse, String userId) {
+    this.title = documentResponse.getName();
+    this.number = documentResponse.getId() + "";
+    this.type = documentResponse.getUserId() == Integer.parseInt(userId) ? "Исходящий" : "Входящий";
+    this.state = "В архиве";
+    this.date = documentResponse.getTimeCreated();
+    if (documentResponse.getDocumentStatuses() != null) {
+      this.status = documentResponse.getDocumentStatuses().get(0).getStatus();
+    }
   }
 
   public String getTitle() {
@@ -39,6 +55,14 @@ public class Document {
 
   public void setNumber(String number) {
     this.number = number;
+  }
+
+  public int getDealId() {
+    return dealId;
+  }
+
+  public void setDealId(int dealId) {
+    this.dealId = dealId;
   }
 
   public String getType() {
@@ -71,5 +95,18 @@ public class Document {
 
   public void setStatus(String status) {
     this.status = status;
+  }
+
+  @Override
+  public String toString() {
+    return "Document{" +
+      "title='" + title + '\'' +
+      ", number='" + number + '\'' +
+      ", dealId=" + dealId +
+      ", type='" + type + '\'' +
+      ", state='" + state + '\'' +
+      ", date='" + date + '\'' +
+      ", status='" + status + '\'' +
+      '}';
   }
 }

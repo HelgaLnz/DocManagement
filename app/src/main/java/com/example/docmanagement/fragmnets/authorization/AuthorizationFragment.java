@@ -73,7 +73,7 @@ public class AuthorizationFragment extends Fragment {
       httpHelper.signIn(
         loginInput.getText().toString(),
         passwordInput.getText().toString(),
-        new VolleyCallback() {
+        new VolleyCallback<JSONObject>() {
           @Override
           public void onSuccess(JSONObject response) {
             try {
@@ -88,6 +88,7 @@ public class AuthorizationFragment extends Fragment {
                 .findNavController(view)
                 .navigate(R.id.action_authorizationFragment_to_documentsFragment, bundle);
             } catch (Exception e) {
+              Log.e(DEBUG_TAG, e.getMessage());
               ToastHelper.showToast(context, "Ошибка сервера");
             }
           }
@@ -107,6 +108,7 @@ public class AuthorizationFragment extends Fragment {
                 );
               }
             } catch (Exception e) {
+              Log.e(DEBUG_TAG, e.getMessage());
               ToastHelper.showToast(context, "Ошибка сервера");
             }
           }
