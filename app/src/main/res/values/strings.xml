@@ -17,4 +17,7 @@
     <string name="create_document">Создать документ</string>
     <string name="my_docs">Мои документы</string>
     <string name="doc_search">Поиск документов</string>
+    <string name="create_photo_record">Создать фото отчет</string>
+    <string name="shot">Снимок</string>
+    <string name="send">Отправить</string>
 </resources>

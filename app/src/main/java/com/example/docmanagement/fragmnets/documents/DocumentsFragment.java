@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.MenuProvider;
 import androidx.fragment.app.Fragment;
@@ -72,6 +74,11 @@ public class DocumentsFragment extends Fragment {
   }
 
   @Override
+  public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+    return super.onOptionsItemSelected(item);
+  }
+
+  @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
 
@@ -91,7 +98,7 @@ public class DocumentsFragment extends Fragment {
     documentsRecycler = view.findViewById(R.id.documents_recycler);
 
     documents = new HashSet<>();
-    documentsAdapter = new DocumentsAdapter(documents);
+    documentsAdapter = new DocumentsAdapter(view, documents);
 
     Gson gson = new GsonBuilder().create();
     this.httpHelper.getDeals(userId, new VolleyCallback<JSONArray>() {
@@ -103,11 +110,13 @@ public class DocumentsFragment extends Fragment {
             DealResponse[].class
           ));
 
+
           for (DealResponse deal : dealsResponse) {
             for (DocumentResponse document : deal.getDocuments()) {
               documents.add(new Document(document, userId));
             }
           }
+          Log.d(DEBUG_TAG, "deals: " + documents);
           documentsAdapter.setItems(documents);
         } catch (Exception e) {
           e.printStackTrace();

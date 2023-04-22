@@ -19,5 +19,15 @@
         android:id="@+id/documentsFragment"
         android:name="com.example.docmanagement.fragmnets.documents.DocumentsFragment"
         android:label="DocumentsFragment"
-        tools:layout="@layout/documents_fragment" />
+        tools:layout="@layout/documents_fragment" >
+        <action
+            android:id="@+id/action_documentsFragment_to_photoRecordFragment"
+            app:destination="@id/photoRecordFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/photoRecordFragment"
+        android:name="com.example.docmanagement.fragmnets.documents.PhotoReportFragment"
+        android:label="DocumentsFragment"
+        tools:layout="@layout/photo_report_fragment" />
 </navigation>

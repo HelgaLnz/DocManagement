@@ -8,4 +8,5 @@ public class HttpConstants {
   public static String USER_ID = "user_id";
   public static String ROLE = "role";
   public static String USER_NAME = "user_name";
+  public static String FILE = "file";
 }

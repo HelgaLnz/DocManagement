@@ -4,12 +4,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.docmanagement.R;
 
 public class DocumentViewHolder extends RecyclerView.ViewHolder {
 
+  private final CardView card;
   private final TextView docTitle;
   private final TextView docNumber;
   private final TextView docType;
@@ -20,6 +22,7 @@ public class DocumentViewHolder extends RecyclerView.ViewHolder {
   public DocumentViewHolder(@NonNull View itemView) {
     super(itemView);
 
+    card = itemView.findViewById(R.id.document_card);
     docTitle = itemView.findViewById(R.id.doc_title);
     docNumber = itemView.findViewById(R.id.doc_number);
     docType = itemView.findViewById(R.id.doc_type);
@@ -50,5 +53,9 @@ public class DocumentViewHolder extends RecyclerView.ViewHolder {
 
   public TextView getDocStatus() {
     return docStatus;
+  }
+
+  public CardView getCard() {
+    return card;
   }
 }

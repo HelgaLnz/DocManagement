@@ -4,11 +4,11 @@
     tools:showIn="navigation_view">
 
     <item
-        android:id="@+id/itemHome"
+        android:id="@+id/menu_item_main"
         android:title="@string/menu_item_home" />
 
     <item
-        android:id="@+id/itemCategories"
+        android:id="@+id/menu_item_docs"
         android:title="@string/menu_item_docs" />
 
 </menu>
