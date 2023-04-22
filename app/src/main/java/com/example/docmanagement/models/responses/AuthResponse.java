@@ -8,10 +8,13 @@ public class AuthResponse {
   private final String userId;
   @SerializedName("role")
   private final String userRole;
+  @SerializedName("name")
+  private final String userName;
 
-  public AuthResponse(String userId, String role) {
+  public AuthResponse(String userId, String role, String userName) {
     this.userId = userId;
     this.userRole = role;
+    this.userName = userName;
   }
 
   public String getUserId() {
@@ -20,6 +23,10 @@ public class AuthResponse {
 
   public String getUserRole() {
     return userRole;
+  }
+
+  public String getUserName() {
+    return userName;
   }
 
   @Override

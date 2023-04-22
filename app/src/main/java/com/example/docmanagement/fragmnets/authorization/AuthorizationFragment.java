@@ -58,7 +58,6 @@ public class AuthorizationFragment extends Fragment {
   private void initValues(View view) {
     this.context = getContext();
     this.view = view;
-    Navigation.findNavController(view).navigate(R.id.action_authorizationFragment_to_documentsFragment); // TODO: remove
 
     httpHelper = new HttpHelper(context);
 
@@ -83,6 +82,7 @@ public class AuthorizationFragment extends Fragment {
               Bundle bundle = new Bundle();
               bundle.putString(HttpConstants.USER_ID, authResponse.getUserId());
               bundle.putString(HttpConstants.ROLE, authResponse.getUserRole());
+              bundle.putString(HttpConstants.USER_NAME, authResponse.getUserName());
 
               Navigation
                 .findNavController(view)
