@@ -12,12 +12,21 @@ public class DocumentStatusResponse {
   private String status;
   @SerializedName("time_created")
   private String timeCreated;
+  @SerializedName("status_name")
+  private String statusName;
 
-  public DocumentStatusResponse(int id, int documentId, String status, String timeCreated) {
+  public DocumentStatusResponse(
+    int id,
+    int documentId,
+    String status,
+    String timeCreated,
+    String statusName
+  ) {
     this.id = id;
     this.documentId = documentId;
     this.status = status;
     this.timeCreated = timeCreated;
+    this.statusName = statusName;
   }
 
   public int getId() {
@@ -28,8 +37,8 @@ public class DocumentStatusResponse {
     return documentId;
   }
 
-  public String getStatus() {
-    return status;
+  public String getStatusName() {
+    return statusName;
   }
 
   public String getTimeCreated() {

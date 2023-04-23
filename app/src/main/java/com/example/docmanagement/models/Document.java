@@ -2,6 +2,9 @@ package com.example.docmanagement.models;
 
 import com.example.docmanagement.models.responses.DocumentResponse;
 
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
 public class Document {
 
   private String title;
@@ -37,10 +40,16 @@ public class Document {
     this.type = documentResponse.getUserId() == Integer.parseInt(userId) ? "Исходящий" : "Входящий";
     this.state = "В архиве";
     if (documentResponse.getDocumentStatuses() != null) {
-      this.date = documentResponse.getDocumentStatuses().get(0).getTimeCreated();
+      this.date = Arrays.stream(documentResponse
+        .getDocumentStatuses()
+        .get(0)
+        .getTimeCreated()
+        .substring(0, 16)
+        .split("T"))
+        .collect(Collectors.joining(" "));
     }
     if (documentResponse.getDocumentStatuses() != null) {
-      this.status = documentResponse.getDocumentStatuses().get(0).getStatus();
+      this.status = documentResponse.getDocumentStatuses().get(0).getStatusName();
     }
   }
 

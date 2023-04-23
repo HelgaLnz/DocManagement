@@ -5,64 +5,76 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/create_photo_record"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-348dp">
 
-    <ImageView
-        android:id="@+id/record_photo"
-        android:layout_width="331dp"
-        android:layout_height="152dp"
-        android:layout_marginTop="20dp"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/photo_record_description"
-        android:layout_width="331dp"
-        android:layout_height="128dp"
-        android:layout_marginTop="52dp"
-        android:background="@drawable/rounded_edittext"
-        android:gravity="start"
-        android:hint="@string/photo_record_description"
-        android:inputType="textEmailAddress"
-        android:maxLength="150"
-        android:paddingHorizontal="10dp"
-        android:textColor="@color/black"
-        android:textColorHint="@color/dark_birch"
-        app:layout_constraintEnd_toEndOf="@+id/record_photo"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/record_photo"
-        app:layout_constraintTop_toBottomOf="@+id/record_photo" />
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/create_photo_record"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_photo"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:text="@string/shot"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/photo_record_description" />
+            <ImageView
+                android:id="@+id/record_photo"
+                android:layout_width="331dp"
+                android:layout_height="300dp"
+                android:layout_marginTop="36dp"
+                app:layout_constraintEnd_toEndOf="@+id/photo_record_description"
+                app:layout_constraintStart_toStartOf="@+id/photo_record_description"
+                app:layout_constraintTop_toBottomOf="@+id/photo_record_description" />
 
-    <Button
-        android:id="@+id/button_send"
-        android:layout_width="130dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:text="@string/send"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/photo_record_description" />
+            <EditText
+                android:id="@+id/photo_record_description"
+                android:layout_width="331dp"
+                android:layout_height="128dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/rounded_edittext"
+                android:gravity="start"
+                android:hint="@string/photo_record_description"
+                android:inputType="textEmailAddress"
+                android:maxLength="150"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/dark_birch"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+            <Button
+                android:id="@+id/button_photo"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="@string/shot"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="@+id/record_photo"
+                app:layout_constraintTop_toBottomOf="@+id/record_photo" />
+
+            <Button
+                android:id="@+id/button_send"
+                android:layout_width="130dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="@string/send"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="@+id/record_photo"
+                app:layout_constraintTop_toBottomOf="@+id/record_photo" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
